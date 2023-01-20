@@ -2,8 +2,8 @@ import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function App() {
-  const [breed, setBreeds] = useState({});
+const App = () => {
+  const [breeds, setBreeds] = useState({});
 
   const getBreeds = () => {
     return axios.get("https://dog.ceo/api/breeds/list/all")
@@ -11,10 +11,10 @@ function App() {
   };
 
   // generates a list of 10 random breeds *** fix: duplicates ****
-  const randomBreed = () => {
+  const randomBreeds = () => {
     let arrayofBreeds = [];
     while (arrayofBreeds.length < 10) {
-      let randomBreed = Object.keys(breed)[Math.floor(Math.random() * Object.keys(breed).length + 1)]
+      let randomBreed = Object.keys(breeds)[Math.floor(Math.random() * Object.keys(breeds).length + 1)]
       arrayofBreeds.push(randomBreed);
       }
       return arrayofBreeds;
@@ -37,7 +37,7 @@ function App() {
         <tbody>
           <tr>
           <th>1</th>
-            <th>{randomBreed()}</th>
+            <th>{randomBreeds()}</th>
           </tr>
           <tr>
             <th>2</th>
