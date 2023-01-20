@@ -1,17 +1,16 @@
-const initialState = {
-  breeds: {},
-};
+import { createSlice } from "@reduxjs/toolkit";
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SET_BREEDS':
-      return {
-        ...state,
-        breeds: action.breeds,
-    };
-    default:
-      return state;
+const breedsSlice = createSlice({
+  name: 'breeds',
+  initialState: {},
+  reducers: {
+    setBreeds(state, action) {
+      state.push({
+        breeds: action.payload.breed,
+      })
+    },
   }
-};
+})
 
-export default reducer;
+export const { setBreeds } = breedsSlice.actions
+export default breedsSlice;
