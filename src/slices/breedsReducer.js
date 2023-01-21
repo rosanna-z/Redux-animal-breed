@@ -1,20 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const shuffleArray = (breeds) => {
+  return [...breeds].sort(() => Math.random() - 0.5);
+};
+
+const getBreedsForTable = (allBreeds) => {
+  const shuffledArray = shuffleArray(allBreeds);
+  const tableOneBreeds = shuffledArray.slice(0, 10);
+  const tableTwoBreeds = shuffledArray.slice(10, 20);
+  return { tableOneBreeds, tableTwoBreeds };
+};
+
 const breedsSlice = createSlice({
   name: "breeds",
-  initialState: { breeds: [] },
+  initialState: { tableOneBreeds: [], tableTwoBreeds: [] },
   reducers: {
-    getBreeds(state, action) {
-      const breeds = Object.keys(action.payload);
-      return { ...state, breeds };
-    },
-    setTable1(state, action) {
-      const tenBreeds = action.payload;
-      console.log(tenBreeds);
-      // return { ...state, tenBreeds };
+    initailizeTwoTables(state, action) {
+      const allBreeds = Object.keys(action.payload);
+      const twoTablesBreeds = getBreedsForTable(allBreeds)
+      return { ...state, ...twoTablesBreeds };
     },
   },
 });
 
-export const { getBreeds, setTable1 } = breedsSlice.actions;
+export const { initailizeTwoTables } = breedsSlice.actions;
 export default breedsSlice.reducer;
