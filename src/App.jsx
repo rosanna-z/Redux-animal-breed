@@ -1,33 +1,37 @@
 import "./App.css";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setBreeds } from "./slices/breedsReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { getBreeds, setTable1 } from "./slices/breedsReducer";
 import axios from "axios";
 
 const App = () => {
   const dispatch = useDispatch();
-  const URL = "https://dog.ceo/api/breeds/list/all";
+  const allBreeds = useSelector((state) => state.breeds);
+  const APIurl = "https://dog.ceo/api/breeds/list/all";
 
-  // generates a list of 10 random breeds *** fix: duplicates ****
-  const randomBreeds = () => {
-    let arrayofBreeds = [];
-    while (arrayofBreeds.length < 10) {
-      let randomBreed =
-        Object.keys(breeds)[
-          Math.floor(Math.random() * Object.keys(breeds).length + 1)
-        ];
-      arrayofBreeds.push(randomBreed);
-    }
-    return arrayofBreeds;
+  const shuffleArray = (array) => {
+    return [...array].sort(() => Math.random() - 0.5);
   };
 
+  // gets the first ten breeds from the shuffled array
+  const getTenBreeds = function (allBreeds) {
+    let breeds = allBreeds.breeds;
+    const shuffledArray = shuffleArray(breeds);
+    let tenBreeds = shuffledArray.slice(0, 10);
+    return tenBreeds;
+  };
+
+  // upon first render, gets all data from API
   useEffect(() => {
     const breedsData = async () => {
-      const response = await axios.get(URL);
-      return dispatch(setBreeds(response.data.message));
+      const response = await axios.get(APIurl);
+      return dispatch(getBreeds(response.data.message));
     };
     breedsData();
   }, []);
+
+  const firstTenBreeds = getTenBreeds(allBreeds)
+  console.log(getTenBreeds(allBreeds))
 
   return (
     <div className="App">
@@ -39,18 +43,12 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>1</th>
-            <th>bulldog</th>
-          </tr>
-          <tr>
-            <th>2</th>
-            <th>poodle</th>
-          </tr>
-          <tr>
-            <th>3</th>
-            <th>shiba</th>
-          </tr>
+          {firstTenBreeds.map((item, index) => (
+            <tr>
+              <th>{index + 1}</th>
+              <th>{item}</th>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
