@@ -8,20 +8,22 @@ const API = "https://dog.ceo/api/breeds/list/all";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { tableOneBreeds, tableTwoBreeds } = useSelector((state) => state.breeds);
+  const { tableOneBreeds, tableTwoBreeds } = useSelector(
+    (state) => state.breeds
+  );
 
-  // upon first render, get all data from API & initialize two tables
+  // upon first render, get data from API & initialize two tables
   useEffect(() => {
-    const breedsData = async () => {
+    const getBreedsData = async () => {
       const response = await axios.get(API);
       return dispatch(initailizeTwoTables(response.data.message));
     };
-    breedsData();
+    getBreedsData();
   }, []);
 
   return (
     <div className="App">
-      <table className="table_animal-breed">
+      <table>
         <thead>
           <tr>
             <th>Rank</th>
@@ -37,7 +39,7 @@ const App = () => {
           ))}
         </tbody>
       </table>
-      <table className="table_animal-breed">
+      <table>
         <thead>
           <tr>
             <th>Rank</th>
