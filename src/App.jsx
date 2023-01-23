@@ -29,7 +29,7 @@ const App = () => {
     e.preventDefault();
     const dropEndIndex = e.target.dataset.index;
     const dragStartIndex = e.dataTransfer.getData("text");
-    dispatch(dragAndDrop({ dragStartIndex, dropEndIndex, tableOneBreeds }));
+    dispatch(dragAndDrop({ dragStartIndex, dropEndIndex, tableOneBreeds, tableTwoBreeds }));
   };
 
   return (
@@ -66,10 +66,17 @@ const App = () => {
         </thead>
         <tbody>
           {tableTwoBreeds.map((breed, index) => (
-            <tr key={breed}>
-              <td>{index + 1}</td>
-              <td draggable="true">{breed}</td>
-            </tr>
+            <tr
+            key={breed}
+            data-index={index}
+            draggable="true"
+            onDrop={handleDrop}
+            onDragStart={handleDragStart}
+            onDragOver={(e) => e.preventDefault()}
+          >
+            <td data-index={index}>{index + 1}</td>
+            <td data-index={index}>{breed}</td>
+          </tr>
           ))}
         </tbody>
       </table>

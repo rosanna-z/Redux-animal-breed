@@ -22,14 +22,16 @@ const breedsSlice = createSlice({
     },
     dragAndDrop(state, action) {
       const tableOne = action.payload.tableOneBreeds;
-      const newTableOne = [...tableOne]
+      const tableTwo = action.payload.tableTwoBreeds;
+      const newTableOne = [...tableOne];
+      const newTableTwo = [...tableTwo];
       const dragStartIndex = action.payload.dragStartIndex;
       const dropEndIndex = action.payload.dropEndIndex;
 
       [newTableOne[dragStartIndex], newTableOne[dropEndIndex]] = [newTableOne[dropEndIndex], newTableOne[dragStartIndex]];
-      console.log("newTableOne", newTableOne);
+      [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableTwo[dragStartIndex]];
 
-      return { ...state, tableOneBreeds: newTableOne };
+      return { ...state, tableOneBreeds: newTableOne, tableTwoBreeds: newTableTwo };
     }
   },
 });
