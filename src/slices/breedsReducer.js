@@ -20,8 +20,15 @@ const breedsSlice = createSlice({
       const twoTablesBreeds = getBreedsForTables(allBreeds);
       return { ...state, ...twoTablesBreeds };
     },
+    dragAndDrop(state, action) {
+      const dragStartIndex = action.payload.dragStartIndex
+      const dropEndIndex = action.payload.dropEndIndex
+      console.log("dropEndIndex", dragStartIndex);
+      console.log("dropEndIndex", dropEndIndex);
+      
+    }
   },
 });
 
-export const { initailizeTwoTables } = breedsSlice.actions;
+export const { initailizeTwoTables, dragAndDrop } = breedsSlice.actions;
 export default breedsSlice.reducer;
