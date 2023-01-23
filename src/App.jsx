@@ -29,7 +29,7 @@ const App = () => {
     e.preventDefault();
     const dropEndIndex = e.target.dataset.index;
     const dragStartIndex = e.dataTransfer.getData("text");
-    dispatch(dragAndDrop({ dragStartIndex, dropEndIndex }));
+    dispatch(dragAndDrop({ dragStartIndex, dropEndIndex, tableOneBreeds }));
   };
 
   return (
