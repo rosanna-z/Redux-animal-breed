@@ -32,8 +32,6 @@ const App = () => {
     const dropEndTable = e.target.dataset.table;
     const dragStartIndex = e.dataTransfer.getData("text/index");
     const dragStartTable = e.dataTransfer.getData("text/table");
-    // console.log("dragStartTable", dragStartTable);
-    // console.log("dropEndTable", dropEndTable);
     dispatch(
       dragAndDrop({
         dragStartIndex,

@@ -33,17 +33,18 @@ const breedsSlice = createSlice({
       if (dragStartTable === 1 && dropEndTable === 1) {
         [newTableOne[dragStartIndex], newTableOne[dropEndIndex]] = [newTableOne[dropEndIndex], newTableOne[dragStartIndex]];
       }
-      else if (dragStartTable === 1 && dropEndTable === 2) {
-        [newTableOne[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableOne[dragStartIndex]];
+      else if (dragStartTable === 2 && dropEndTable === 2) {
+        [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableTwo[dragStartIndex]];
       }
       else if (dragStartTable === 2 && dropEndTable === 1) {
-        [newTableTwo[dragStartIndex], newTableOne[dropEndIndex]] = [newTableOne[dropEndIndex], newTableTwo[dragStartIndex]];
+        newTableOne.push(newTableTwo[dragStartIndex]);
+        newTableTwo.splice(dragStartIndex, 1);
       }
       else {
-        [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableTwo[dragStartIndex]];
+        console.log("removed value", newTableOne[dragStartIndex]);
+        newTableTwo.push(newTableOne[dragStartIndex]);
+        newTableOne.splice(dragStartIndex, 1);
       };
-
-
       return { ...state, tableOneBreeds: newTableOne, tableTwoBreeds: newTableTwo };
     }
   },
