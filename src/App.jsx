@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {error && <div>Error!</div>}
+      {error && <div>Woof Invalid Action Woof</div>}
       <table>
         <thead>
           <tr>

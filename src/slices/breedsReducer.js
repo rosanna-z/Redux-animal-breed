@@ -56,7 +56,7 @@ const breedsSlice = createSlice({
         newTableTwo.push(newTableOne[dragStartIndex]);
         newTableOne.splice(dragStartIndex, 1);
       };
-      return { ...state, tableOneBreeds: newTableOne, tableTwoBreeds: newTableTwo };
+      return { ...state, tableOneBreeds: newTableOne, tableTwoBreeds: newTableTwo, error: false };
     }
   },
 });
