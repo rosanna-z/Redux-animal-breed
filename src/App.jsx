@@ -12,7 +12,7 @@ const App = () => {
     (state) => state.breeds
   );
 
-  // upon first render, get data from API & initialize two tables
+  // Upon first render, get data from API & initialize two tables
   useEffect(() => {
     const getBreedsData = async () => {
       const response = await axios.get(API);

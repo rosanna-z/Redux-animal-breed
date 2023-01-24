@@ -4,6 +4,7 @@ const shuffleArray = (array) => {
   return [...array].sort(() => Math.random() - 0.5);
 };
 
+// Gets two sets of breeds from shuffled array
 const getBreedsForTables = (allBreeds) => {
   const shuffledArray = shuffleArray(allBreeds);
   const tableOneBreeds = shuffledArray.slice(0, 10);
@@ -21,7 +22,7 @@ const breedsSlice = createSlice({
       return { ...state, ...twoTablesBreeds };
     },
     dragAndDrop(state, action) {
-      // check if redux allows mutating?
+      // Check if redux allows mutating?
       const newTableOne = [...state.tableOneBreeds];
       const newTableTwo = [...state.tableTwoBreeds];
 
@@ -30,13 +31,17 @@ const breedsSlice = createSlice({
       const dragStartTable = parseInt(action.payload.dragStartTable);
       const dropEndTable = parseInt(action.payload.dropEndTable);
 
+      // Swaps two breeds within table 1
       if (dragStartTable === 1 && dropEndTable === 1) {
         [newTableOne[dragStartIndex], newTableOne[dropEndIndex]] = [newTableOne[dropEndIndex], newTableOne[dragStartIndex]];
       }
+      // Swaps two breeds within table 2
       else if (dragStartTable === 2 && dropEndTable === 2) {
         [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableTwo[dragStartIndex]];
       }
+      // Moves specific breed from table 2 to end of table 1
       else if (dragStartTable === 2 && dropEndTable === 1) {
+        // Error message if less than one breed
         if (newTableTwo.length === 1) {
           return {
             ...state, 
@@ -47,6 +52,7 @@ const breedsSlice = createSlice({
         newTableTwo.splice(dragStartIndex, 1);
       }
       else {
+        // Error message if less than one breed
         if (newTableOne.length === 1) {
           return {
             ...state, 
