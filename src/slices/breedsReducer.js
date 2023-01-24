@@ -27,9 +27,16 @@ const breedsSlice = createSlice({
       const newTableTwo = [...tableTwo];
       const dragStartIndex = action.payload.dragStartIndex;
       const dropEndIndex = action.payload.dropEndIndex;
+      const dragStartTable = parseInt(action.payload.dragStartTable);
+      const dropEndTable = parseInt(action.payload.dropEndTable);
 
-      [newTableOne[dragStartIndex], newTableOne[dropEndIndex]] = [newTableOne[dropEndIndex], newTableOne[dragStartIndex]];
-      [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableTwo[dragStartIndex]];
+      if (dragStartTable === 1 && dropEndTable === 1) {
+        [newTableOne[dragStartIndex], newTableOne[dropEndIndex]] = [newTableOne[dropEndIndex], newTableOne[dragStartIndex]];
+      }
+      else {
+        [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableTwo[dragStartIndex]];
+      };
+
 
       return { ...state, tableOneBreeds: newTableOne, tableTwoBreeds: newTableTwo };
     }

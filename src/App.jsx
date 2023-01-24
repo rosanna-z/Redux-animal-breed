@@ -10,7 +10,7 @@ const App = () => {
   const dispatch = useDispatch();
   const { tableOneBreeds, tableTwoBreeds } = useSelector(
     (state) => state.breeds
-);
+  );
 
   // upon first render, get data from API & initialize two tables
   useEffect(() => {
@@ -22,14 +22,28 @@ const App = () => {
   }, [dispatch]);
 
   const handleDragStart = (e) => {
-    e.dataTransfer.setData("text", e.target.dataset.index);
+    e.dataTransfer.setData("text/index", e.target.dataset.index);
+    e.dataTransfer.setData("text/table", e.target.dataset.table);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
     const dropEndIndex = e.target.dataset.index;
-    const dragStartIndex = e.dataTransfer.getData("text");
-    dispatch(dragAndDrop({ dragStartIndex, dropEndIndex, tableOneBreeds, tableTwoBreeds }));
+    const dropEndTable = e.target.dataset.table;
+    const dragStartIndex = e.dataTransfer.getData("text/index");
+    const dragStartTable = e.dataTransfer.getData("text/table");
+    // console.log("dragStartTable", dragStartTable);
+    // console.log("dropEndTable", dropEndTable);
+    dispatch(
+      dragAndDrop({
+        dragStartIndex,
+        dropEndIndex,
+        tableOneBreeds,
+        tableTwoBreeds,
+        dragStartTable,
+        dropEndTable,
+      })
+    );
   };
 
   return (
@@ -46,13 +60,18 @@ const App = () => {
             <tr
               key={breed}
               data-index={index}
+              data-table="1"
               draggable="true"
               onDrop={handleDrop}
               onDragStart={handleDragStart}
               onDragOver={(e) => e.preventDefault()}
             >
-              <td data-index={index}>{index + 1}</td>
-              <td data-index={index}>{breed}</td>
+              <td data-index={index} data-table="1">
+                {index + 1}
+              </td>
+              <td data-index={index} data-table="1">
+                {breed}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -67,16 +86,21 @@ const App = () => {
         <tbody>
           {tableTwoBreeds.map((breed, index) => (
             <tr
-            key={breed}
-            data-index={index}
-            draggable="true"
-            onDrop={handleDrop}
-            onDragStart={handleDragStart}
-            onDragOver={(e) => e.preventDefault()}
-          >
-            <td data-index={index}>{index + 1}</td>
-            <td data-index={index}>{breed}</td>
-          </tr>
+              key={breed}
+              data-index={index}
+              data-table="2"
+              draggable="true"
+              onDrop={handleDrop}
+              onDragStart={handleDragStart}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              <td data-index={index} data-table="2">
+                {index + 1}
+              </td>
+              <td data-index={index} data-table="2">
+                {breed}
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
