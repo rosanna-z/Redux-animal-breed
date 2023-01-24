@@ -8,7 +8,7 @@ const API = "https://dog.ceo/api/breeds/list/all";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { tableOneBreeds, tableTwoBreeds } = useSelector(
+  const { tableOneBreeds, tableTwoBreeds, error } = useSelector(
     (state) => state.breeds
   );
 
@@ -36,8 +36,6 @@ const App = () => {
       dragAndDrop({
         dragStartIndex,
         dropEndIndex,
-        tableOneBreeds,
-        tableTwoBreeds,
         dragStartTable,
         dropEndTable,
       })
@@ -46,6 +44,7 @@ const App = () => {
 
   return (
     <div className="App">
+      {error && <div>Error!</div>}
       <table>
         <thead>
           <tr>

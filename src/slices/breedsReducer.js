@@ -13,7 +13,7 @@ const getBreedsForTables = (allBreeds) => {
 
 const breedsSlice = createSlice({
   name: "breeds",
-  initialState: { tableOneBreeds: [], tableTwoBreeds: [] },
+  initialState: { tableOneBreeds: [], tableTwoBreeds: [], error: false },
   reducers: {
     initailizeTwoTables(state, action) {
       const allBreeds = Object.keys(action.payload);
@@ -21,10 +21,10 @@ const breedsSlice = createSlice({
       return { ...state, ...twoTablesBreeds };
     },
     dragAndDrop(state, action) {
-      const tableOne = action.payload.tableOneBreeds;
-      const tableTwo = action.payload.tableTwoBreeds;
-      const newTableOne = [...tableOne];
-      const newTableTwo = [...tableTwo];
+      // check if redux allows mutating?
+      const newTableOne = [...state.tableOneBreeds];
+      const newTableTwo = [...state.tableTwoBreeds];
+
       const dragStartIndex = action.payload.dragStartIndex;
       const dropEndIndex = action.payload.dropEndIndex;
       const dragStartTable = parseInt(action.payload.dragStartTable);
@@ -37,11 +37,22 @@ const breedsSlice = createSlice({
         [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableTwo[dragStartIndex]];
       }
       else if (dragStartTable === 2 && dropEndTable === 1) {
+        if (newTableTwo.length === 1) {
+          return {
+            ...state, 
+            error: true,
+          };
+        };
         newTableOne.push(newTableTwo[dragStartIndex]);
         newTableTwo.splice(dragStartIndex, 1);
       }
       else {
-        console.log("removed value", newTableOne[dragStartIndex]);
+        if (newTableOne.length === 1) {
+          return {
+            ...state, 
+            error: true,
+          };
+        };
         newTableTwo.push(newTableOne[dragStartIndex]);
         newTableOne.splice(dragStartIndex, 1);
       };
