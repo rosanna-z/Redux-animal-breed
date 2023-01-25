@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initailizeTwoTables, dragAndDrop } from "./slices/breedsReducer";
+import { initailizeTwoTables, dragAndDrop } from "./slices/breedsSlice";
 import axios from "axios";
 import "./App.css";
 
@@ -41,6 +41,22 @@ const App = () => {
       })
     );
   };
+
+  // Exports the data to JSON file
+  const handleExport = (e) => {
+    
+    const obj = {};
+    for (let breed of tableOneBreeds) {
+      console.log(breed);
+      for (let rank = 1; rank < tableOneBreeds.length; rank++) {
+        obj["rank" + rank] = breed;
+      }
+    }
+    console.log("obj", JSON.stringify(obj, null, 2));
+    return obj;
+    // "breed1Total" = tableOneBreeds.length
+
+  }
 
   return (
     <div className="App">
@@ -101,6 +117,7 @@ const App = () => {
           ))}
         </tbody>
       </table>
+      <button type="button" onClick={handleExport}>Export to JSON</button>
     </div>
   );
 };

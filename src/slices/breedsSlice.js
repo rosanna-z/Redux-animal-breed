@@ -51,6 +51,7 @@ const breedsSlice = createSlice({
         newTableOne.push(newTableTwo[dragStartIndex]);
         newTableTwo.splice(dragStartIndex, 1);
       }
+      // Moves specific breed from table 1 to end of table 2
       else {
         // Error message if less than one breed
         if (newTableOne.length === 1) {

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import breedsSlice from "./slices/breedsReducer";
+import breedsSlice from "./slices/breedsSlice";
 
 const store = configureStore({
   reducer: {
