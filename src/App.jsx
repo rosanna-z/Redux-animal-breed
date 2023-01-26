@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { initailizeTwoTables, dragAndDrop } from "./slices/breedsSlice";
 import { saveAs } from "file-saver";
 import axios from "axios";
+import Error from "./Error";
 import "./App.css";
 
 const API = "https://dog.ceo/api/breeds/list/all";
@@ -91,7 +92,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {error && <div>Woof Invalid Action Woof</div>}
+      {error && <Error />}
       <table>
         <thead>
           <tr>
