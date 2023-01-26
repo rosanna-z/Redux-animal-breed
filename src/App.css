@@ -16,11 +16,15 @@
 }
 
 table, th, td, button {
-  border: 1px solid black;
+  border: 1px solid rgb(170, 170, 170);
   border-collapse: collapse;
   padding: 5px;
-  height:fit-content;
+  height: fit-content;
   cursor: grab;
+}
+
+tr:not(:first-child):hover {
+  background-color: rgb(233, 233, 233);
 }
 
 .draggable:active {

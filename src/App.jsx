@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initailizeTwoTables, dragAndDrop } from "./slices/breedsSlice";
 import { saveAs } from "file-saver";
-import { FaDownload } from 'react-icons/fa';
+import { FaDownload } from "react-icons/fa";
 import axios from "axios";
 import Error from "./Error";
 import "./App.css";
@@ -62,15 +62,15 @@ const App = () => {
       console.log(breed);
       for (let rank = 1; rank < tableOneBreeds.length; rank++) {
         breed1Rank["rank" + rank] = breed;
-      }
-    }
+      };
+    };
 
     for (let breed of tableTwoBreeds) {
       console.log(breed);
       for (let rank = 1; rank < tableTwoBreeds.length; rank++) {
         breed2Rank["rank" + rank] = breed;
-      }
-    }
+      };
+    };
 
     breed1Total["breed1Total"] = tableOneBreeds.length;
     breed2Total["breed2Total"] = tableTwoBreeds.length;
@@ -94,65 +94,66 @@ const App = () => {
     <div className="App">
       {error && <Error />}
       <div className="table">
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Breed 1</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableOneBreeds.map((breed, index) => (
-            <tr
-              key={breed}
-              data-index={index}
-              data-table="1"
-              draggable="true"
-              onDrop={handleDrop}
-              onDragStart={handleDragStart}
-              onDragOver={(e) => e.preventDefault()}
-            >
-              <td data-index={index} data-table="1">
-                {index + 1}
-              </td>
-              <td data-index={index} data-table="1">
-                {breed}
-              </td>
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Breed 1</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Breed 2</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableTwoBreeds.map((breed, index) => (
-            <tr
-              key={breed}
-              data-index={index}
-              data-table="2"
-              draggable="true"
-              onDrop={handleDrop}
-              onDragStart={handleDragStart}
-              onDragOver={(e) => e.preventDefault()}
-            >
-              <td data-index={index} data-table="2">
-                {index + 1}
-              </td>
-              <td data-index={index} data-table="2">
-                {breed}
-              </td>
+          </thead>
+          <tbody>
+            {tableOneBreeds.map((breed, index) => (
+              <tr
+                key={breed}
+                data-index={index}
+                data-table="1"
+                draggable="true"
+                onDrop={handleDrop}
+                onDragStart={handleDragStart}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                <td data-index={index} data-table="1">
+                  {index + 1}
+                </td>
+                <td data-index={index} data-table="1">
+                  {breed}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Breed 2</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {tableTwoBreeds.map((breed, index) => (
+              <tr
+                key={breed}
+                data-index={index}
+                data-table="2"
+                draggable="true"
+                onDrop={handleDrop}
+                onDragStart={handleDragStart}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                <td data-index={index} data-table="2">
+                  {index + 1}
+                </td>
+                <td data-index={index} data-table="2">
+                  {breed}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       <button type="button" onClick={handleExport}>
-        <FaDownload/>&nbsp;Export to JSON
+        <FaDownload />
+        &nbsp;Export to JSON
       </button>
     </div>
   );
