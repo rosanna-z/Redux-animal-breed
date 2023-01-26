@@ -26,10 +26,10 @@ const breedsSlice = createSlice({
       const newTableOne = [...state.tableOneBreeds];
       const newTableTwo = [...state.tableTwoBreeds];
 
-      const dragStartIndex = action.payload.dragStartIndex;
-      const dropEndIndex = action.payload.dropEndIndex;
-      const dragStartTable = parseInt(action.payload.dragStartTable);
-      const dropEndTable = parseInt(action.payload.dropEndTable);
+      const dragStartIndex = action.payload.dragStart.index;
+      const dropEndIndex = action.payload.dropEnd.index;
+      const dragStartTable = parseInt(action.payload.dragStart.table);
+      const dropEndTable = parseInt(action.payload.dropEnd.table);
 
       // Swaps two breeds within table 1
       if (dragStartTable === 1 && dropEndTable === 1) {

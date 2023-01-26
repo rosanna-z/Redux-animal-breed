@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initailizeTwoTables, dragAndDrop } from "./slices/breedsSlice";
-import { saveAs } from 'file-saver';
+import { saveAs } from "file-saver";
 import axios from "axios";
 import "./App.css";
 
@@ -11,79 +11,83 @@ const App = () => {
   const dispatch = useDispatch();
   const { tableOneBreeds, tableTwoBreeds, error } = useSelector(
     (state) => state.breeds
-    );
-    
-    // Upon first render, get data from API & initialize two tables
-    useEffect(() => {
-      const getBreedsData = async () => {
-        const response = await axios.get(API);
-        return dispatch(initailizeTwoTables(response.data.message));
-      };
-      getBreedsData();
-    }, [dispatch]);
-    
-    const handleDragStart = (e) => {
-      e.dataTransfer.setData("text/index", e.target.dataset.index);
-      e.dataTransfer.setData("text/table", e.target.dataset.table);
+  );
+
+  // Upon first render, get data from API & initialize two tables
+  useEffect(() => {
+    const getBreedsData = async () => {
+      const response = await axios.get(API);
+      return dispatch(initailizeTwoTables(response.data.message));
     };
-    
-    const handleDrop = (e) => {
-      e.preventDefault();
-      const dropEndIndex = e.target.dataset.index;
-      const dropEndTable = e.target.dataset.table;
-      const dragStartIndex = e.dataTransfer.getData("text/index");
-      const dragStartTable = e.dataTransfer.getData("text/table");
-      dispatch(
-        dragAndDrop({
-          dragStartIndex,
-          dropEndIndex,
-          dragStartTable,
-          dropEndTable,
-        })
-        );
-      };
-      
-      // Exports the data to JSON file
-      const handleExport = (e) => {
-        const dogBreeds = {};
-        const breed1Total = {};
-        const breed2Total = {};
-        const breed1Rank = {};
-        const breed2Rank = {};
-        const fileName = "dogBreeds.json";
-        
-        for (let breed of tableOneBreeds) {
-          console.log(breed);
-          for (let rank = 1; rank < tableOneBreeds.length; rank++) {
-            breed1Rank["rank" + rank] = breed;
-          }
-        }
-        
-        for (let breed of tableTwoBreeds) {
-          console.log(breed);
-          for (let rank = 1; rank < tableTwoBreeds.length; rank++) {
-            breed2Rank["rank" + rank] = breed;
-          }
-        }
-    
-     breed1Total["breed1Total"] = tableOneBreeds.length;
-     breed2Total["breed2Total"] = tableTwoBreeds.length;
+    getBreedsData();
+  }, [dispatch]);
 
-     const tableTwo = { ...breed2Total, breed2Rank }
-     const data = { ...breed1Total, breed1Rank, tableTwo };
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData("text/index", e.target.dataset.index);
+    e.dataTransfer.setData("text/table", e.target.dataset.table);
+  };
 
-    dogBreeds["dogBreeds"] = data
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const dropEndIndex = e.target.dataset.index;
+    const dropEndTable = e.target.dataset.table;
+    const dragStartIndex = e.dataTransfer.getData("text/index");
+    const dragStartTable = e.dataTransfer.getData("text/table");
+    dispatch(
+      dragAndDrop({
+        dragStart: {
+          index: dragStartIndex,
+          table: dragStartTable,
+        },
+        dropEnd: {
+          index: dropEndIndex,
+          table: dropEndTable,
+        },
+      })
+    );
+  };
 
-    const jsonString = JSON.stringify(dogBreeds, null, 2)
+  // Exports the data to JSON file
+  const handleExport = (e) => {
+    const dogBreeds = {};
+    const breed1Total = {};
+    const breed2Total = {};
+    const breed1Rank = {};
+    const breed2Rank = {};
+    const fileName = "dogBreeds.json";
+
+    for (let breed of tableOneBreeds) {
+      console.log(breed);
+      for (let rank = 1; rank < tableOneBreeds.length; rank++) {
+        breed1Rank["rank" + rank] = breed;
+      }
+    }
+
+    for (let breed of tableTwoBreeds) {
+      console.log(breed);
+      for (let rank = 1; rank < tableTwoBreeds.length; rank++) {
+        breed2Rank["rank" + rank] = breed;
+      }
+    }
+
+    breed1Total["breed1Total"] = tableOneBreeds.length;
+    breed2Total["breed2Total"] = tableTwoBreeds.length;
+
+    const tableTwo = { ...breed2Total, breed2Rank };
+    const data = { ...breed1Total, breed1Rank, tableTwo };
+
+    dogBreeds["dogBreeds"] = data;
+
+    const jsonString = JSON.stringify(dogBreeds, null, 2);
     console.log(jsonString);
-    
-    const blob = new Blob([jsonString], { type: "application/json" })
-    saveAs(blob, fileName, err => {
+
+    const blob = new Blob([jsonString], { type: "application/json" });
+    saveAs(blob, fileName, (err) => {
       if (err) throw error;
     });
 
     return blob;
-  }
+  };
 
   return (
     <div className="App">
@@ -144,7 +148,9 @@ const App = () => {
           ))}
         </tbody>
       </table>
-      <button type="button" onClick={handleExport}>Export to JSON</button>
+      <button type="button" onClick={handleExport}>
+        Export to JSON
+      </button>
     </div>
   );
 };
