@@ -86,7 +86,6 @@ const App = () => {
     saveAs(blob, fileName, (err) => {
       if (err) throw error;
     });
-
     return blob;
   };
 

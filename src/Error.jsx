@@ -1,9 +1,10 @@
+import { FaExclamationTriangle } from 'react-icons/fa';
 import "./Error.css";
 
 const Error = () => {
   return (
     <div className="Error">
-      Woof Invalid Action Woof!
+      <FaExclamationTriangle /> Woof Invalid Action Woof
     </div>
   );
 };
