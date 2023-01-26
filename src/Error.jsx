@@ -4,7 +4,7 @@ import "./Error.css";
 const Error = () => {
   return (
     <div className="Error">
-      <FaExclamationTriangle /> Woof Invalid Action Woof
+      <FaExclamationTriangle />&nbsp;Woof Invalid Action Woof
     </div>
   );
 };

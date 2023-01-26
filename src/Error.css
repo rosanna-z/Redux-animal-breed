@@ -8,5 +8,16 @@
   padding: 10px;
   width: max-content;
   color: #740e1e;
+}
 
+button {
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  text-align: center;
+}
+
+button:hover {
+  color: #4d4d4d;
+  cursor: pointer;
 }

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initailizeTwoTables, dragAndDrop } from "./slices/breedsSlice";
 import { saveAs } from "file-saver";
+import { FaDownload } from 'react-icons/fa';
 import axios from "axios";
 import Error from "./Error";
 import "./App.css";
@@ -92,6 +93,7 @@ const App = () => {
   return (
     <div className="App">
       {error && <Error />}
+      <div className="table">
       <table>
         <thead>
           <tr>
@@ -148,8 +150,9 @@ const App = () => {
           ))}
         </tbody>
       </table>
+      </div>
       <button type="button" onClick={handleExport}>
-        Export to JSON
+        <FaDownload/>&nbsp;Export to JSON
       </button>
     </div>
   );
