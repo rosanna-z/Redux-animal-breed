@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/animal-breed/static/css/main.70fd1a43.css",
+    "main.js": "/animal-breed/static/js/main.91e6403f.js",
+    "static/js/787.039e88f5.chunk.js": "/animal-breed/static/js/787.039e88f5.chunk.js",
+    "index.html": "/animal-breed/index.html",
+    "main.70fd1a43.css.map": "/animal-breed/static/css/main.70fd1a43.css.map",
+    "main.91e6403f.js.map": "/animal-breed/static/js/main.91e6403f.js.map",
+    "787.039e88f5.chunk.js.map": "/animal-breed/static/js/787.039e88f5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.70fd1a43.css",
+    "static/js/main.91e6403f.js"
+  ]
+}
