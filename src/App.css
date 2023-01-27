@@ -20,26 +20,17 @@ table, th, td, button {
   border-collapse: collapse;
   padding: 5px;
   height: fit-content;
+}
+
+tr:hover {
+  background-color: rgb(233, 233, 233);
   cursor: grab;
 }
 
-tr:not(:first-child):hover {
-  background-color: rgb(233, 233, 233);
+.table-header {
+  pointer-events: none;
 }
 
 .draggable:active {
   cursor: grabbing;
-}
-
-button {
-  display: flex;
-  flex-direction: row;
-  border-radius: 5px;
-  text-align: center;
-  color: black;
-}
-
-button:hover {
-  background-color: rgb(226, 226, 226);
-  cursor: pointer;
 }
