@@ -33,21 +33,27 @@ const breedsSlice = createSlice({
 
       // Swaps two breeds within table 1
       if (dragStartTable === 1 && dropEndTable === 1) {
-        [newTableOne[dragStartIndex], newTableOne[dropEndIndex]] = [newTableOne[dropEndIndex], newTableOne[dragStartIndex]];
+        [newTableOne[dragStartIndex], newTableOne[dropEndIndex]] = [
+          newTableOne[dropEndIndex],
+          newTableOne[dragStartIndex],
+        ];
       }
       // Swaps two breeds within table 2
       else if (dragStartTable === 2 && dropEndTable === 2) {
-        [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [newTableTwo[dropEndIndex], newTableTwo[dragStartIndex]];
+        [newTableTwo[dragStartIndex], newTableTwo[dropEndIndex]] = [
+          newTableTwo[dropEndIndex],
+          newTableTwo[dragStartIndex],
+        ];
       }
       // Moves specific breed from table 2 to end of table 1
       else if (dragStartTable === 2 && dropEndTable === 1) {
         // Error message if less than one breed
         if (newTableTwo.length === 1) {
           return {
-            ...state, 
+            ...state,
             error: true,
           };
-        };
+        }
         newTableOne.push(newTableTwo[dragStartIndex]);
         newTableTwo.splice(dragStartIndex, 1);
       }
@@ -56,17 +62,25 @@ const breedsSlice = createSlice({
         // Error message if less than one breed
         if (newTableOne.length === 1) {
           return {
-            ...state, 
+            ...state,
             error: true,
           };
-        };
+        }
         newTableTwo.push(newTableOne[dragStartIndex]);
         newTableOne.splice(dragStartIndex, 1);
+      }
+      return {
+        ...state,
+        tableOneBreeds: newTableOne,
+        tableTwoBreeds: newTableTwo,
+        error: false,
       };
-      return { ...state, tableOneBreeds: newTableOne, tableTwoBreeds: newTableTwo, error: false };
+    },
+    closeModal(state, action) {
+      return { ...state, error: false };
     }
   },
 });
 
-export const { initailizeTwoTables, dragAndDrop } = breedsSlice.actions;
+export const { initailizeTwoTables, dragAndDrop, closeModal } = breedsSlice.actions;
 export default breedsSlice.reducer;

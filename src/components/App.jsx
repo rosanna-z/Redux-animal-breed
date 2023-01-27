@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initailizeTwoTables } from "./slices/breedsSlice";
+import { initailizeTwoTables } from "../slices/breedsSlice";
 import axios from "axios";
 import Error from "./Error";
 import Button from "./Button";

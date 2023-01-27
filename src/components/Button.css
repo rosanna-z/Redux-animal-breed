@@ -1,12 +1,13 @@
-button {
+.button {
   display: flex;
+  align-items: center;
   flex-direction: row;
   border-radius: 5px;
   text-align: center;
   color: black;
 }
 
-button:hover {
+.button:hover {
   background-color: rgb(226, 226, 226);
   cursor: pointer;
 }

@@ -1,6 +1,6 @@
+import { useSelector } from "react-redux";
 import { FaDownload } from "react-icons/fa";
 import { saveAs } from "file-saver";
-import { useSelector } from "react-redux";
 import "./Button.css";
 
 export default function Button() {
@@ -10,12 +10,12 @@ export default function Button() {
 
   // Exports the data to JSON file
   const handleExport = () => {
-    const dogBreeds = {};
+    const fileName = "dogBreeds.json";
+    const dogBreeds = {}; 
     const breed1Total = {};
     const breed2Total = {};
     const breed1Rank = {};
     const breed2Rank = {};
-    const fileName = "dogBreeds.json";
 
     for (let rank = 1; rank < tableOneBreeds.length + 1; rank++) {
       breed1Rank["rank" + rank] = tableOneBreeds[rank - 1];
@@ -44,7 +44,7 @@ export default function Button() {
   };
 
   return (
-    <button type="button" onClick={handleExport}>
+    <button type="button" onClick={handleExport} className="button">
       <FaDownload />
       &nbsp;Export to JSON
     </button>

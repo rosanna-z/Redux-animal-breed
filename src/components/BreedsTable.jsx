@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { dragAndDrop } from "./slices/breedsSlice";
+import { dragAndDrop } from "../slices/breedsSlice";
 import "./BreedsTable.css";
 
 export default function BreedsTable() {
@@ -52,6 +52,7 @@ export default function BreedsTable() {
               onDrop={handleDrop}
               onDragStart={handleDragStart}
               onDragOver={(e) => e.preventDefault()}
+              className="table-row"
             >
               <td data-index={index} data-table="1">
                 {index + 1}
@@ -80,6 +81,7 @@ export default function BreedsTable() {
               onDrop={handleDrop}
               onDragStart={handleDragStart}
               onDragOver={(e) => e.preventDefault()}
+              className="table-row"
             >
               <td data-index={index} data-table="2">
                 {index + 1}
