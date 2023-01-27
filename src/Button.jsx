@@ -3,7 +3,7 @@ import { saveAs } from "file-saver";
 import { useSelector } from "react-redux";
 import "./Button.css";
 
-const Button = () => {
+export default function Button() {
   const { tableOneBreeds, tableTwoBreeds } = useSelector(
     (state) => state.breeds
   );
@@ -50,5 +50,3 @@ const Button = () => {
     </button>
   );
 };
-
-export default Button;
