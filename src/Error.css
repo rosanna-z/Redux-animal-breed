@@ -9,16 +9,3 @@
   width: max-content;
   color: #740e1e;
 }
-
-button {
-  display: flex;
-  flex-direction: row;
-  border-radius: 5px;
-  text-align: center;
-  color: black;
-}
-
-button:hover {
-  background-color: rgb(226, 226, 226);
-  cursor: pointer;
-}

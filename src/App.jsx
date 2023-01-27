@@ -50,7 +50,7 @@ const App = () => {
   };
 
   // Exports the data to JSON file
-  const handleExport = (e) => {
+  const handleExport = () => {
     const dogBreeds = {};
     const breed1Total = {};
     const breed2Total = {};
@@ -58,35 +58,29 @@ const App = () => {
     const breed2Rank = {};
     const fileName = "dogBreeds.json";
 
-    for (let breed of tableOneBreeds) {
-      console.log(breed);
-      for (let rank = 1; rank < tableOneBreeds.length; rank++) {
-        breed1Rank["rank" + rank] = breed;
-      };
-    };
+    for (let rank = 1; rank < tableOneBreeds.length + 1; rank++) {
+      breed1Rank["rank" + rank] = tableOneBreeds[rank - 1];
+    }
 
-    for (let breed of tableTwoBreeds) {
-      console.log(breed);
-      for (let rank = 1; rank < tableTwoBreeds.length; rank++) {
-        breed2Rank["rank" + rank] = breed;
-      };
-    };
+    for (let rank = 1; rank < tableTwoBreeds.length + 1; rank++) {
+      breed2Rank["rank" + rank] = tableTwoBreeds[rank - 1];
+    }
 
     breed1Total["breed1Total"] = tableOneBreeds.length;
     breed2Total["breed2Total"] = tableTwoBreeds.length;
 
-    const tableTwo = { ...breed2Total, breed2Rank };
-    const data = { ...breed1Total, breed1Rank, tableTwo };
+    const data = { ...breed1Total, breed1Rank, ...breed2Total, breed2Rank };
 
     dogBreeds["dogBreeds"] = data;
 
     const jsonString = JSON.stringify(dogBreeds, null, 2);
-    console.log(jsonString);
 
     const blob = new Blob([jsonString], { type: "application/json" });
+
     saveAs(blob, fileName, (err) => {
       if (err) throw error;
     });
+
     return blob;
   };
 
@@ -95,13 +89,10 @@ const App = () => {
       {error && <Error />}
       <div className="table">
         <table>
-          <thead>
             <tr>
               <th>Rank</th>
               <th>Breed 1</th>
             </tr>
-          </thead>
-          <tbody>
             {tableOneBreeds.map((breed, index) => (
               <tr
                 key={breed}
@@ -120,16 +111,12 @@ const App = () => {
                 </td>
               </tr>
             ))}
-          </tbody>
         </table>
         <table>
-          <thead>
             <tr>
               <th>Rank</th>
               <th>Breed 2</th>
             </tr>
-          </thead>
-          <tbody>
             {tableTwoBreeds.map((breed, index) => (
               <tr
                 key={breed}
@@ -148,7 +135,6 @@ const App = () => {
                 </td>
               </tr>
             ))}
-          </tbody>
         </table>
       </div>
       <button type="button" onClick={handleExport}>
