@@ -13,7 +13,7 @@ table, th, td, button {
   height: fit-content;
 }
 
-tr:hover {
+.table tr:hover {
   background-color: rgb(233, 233, 233);
   cursor: grab;
 }
